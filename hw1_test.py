@@ -1,7 +1,7 @@
 import data
 import hw1
 import unittest
-
+import math
 from hw1 import vowel_count, ascending_pairs, short_lists, add_prices, rectangle_area, books_by_author
 
 
@@ -45,12 +45,23 @@ class TestCases(unittest.TestCase):
 
     # Part 7
     def test_circle_bound(self):
-
+        # Create a rectangle
+        rect = data.Rectangle(data.Point(0, 2), data.Point(2, 0))
+        bounding_circle = hw1.circle_bound(rect)
+        expected_center = data.Point(1.0, 1.0)
+        expected_radius = math.sqrt((rect.top_left.x - expected_center.x) ** 2 +
+                                    (rect.top_left.y - expected_center.y) ** 2)
+        self.assertEqual(bounding_circle.center, expected_center)
+        self.assertEqual(bounding_circle.radius, expected_radius)
     # Part 8
-
-
-
-
+    def test_below_average(self):
+        employees = [data.Employee("Alice", 50000),
+            data.Employee("Bob", 40000),
+            data.Employee("Charlie", 30000),
+            data.Employee("Diana", 60000)
+        ]
+        result = hw1.below_pay_average(employees)
+        self.assertEqual(result, ["Bob", "Charlie"])
 
 if __name__ == '__main__':
     unittest.main()
